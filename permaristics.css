@@ -1,0 +1,186 @@
+/**
+ * Reset !
+ */
+ html, body, div, span, applet, object, iframe,
+ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ a, abbr, acronym, address, big, cite, code,
+ del, dfn, em, img, ins, kbd, q, s, samp,
+ small, strike, strong, sub, sup, tt, var,
+ b, u, i, center,
+ dl, dt, dd, ol, ul, li,
+ fieldset, form, label, legend,
+ table, caption, tbody, tfoot, thead, tr, th, td,
+ article, aside, canvas, details, embed,
+ figure, figcaption, footer, header, hgroup,
+ menu, nav, output, ruby, section, summary,
+ time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+ }
+ /* HTML5 display-role reset for older browsers */
+ article, aside, details, figcaption, figure,
+ footer, header, hgroup, menu, nav, section {
+ 	display: block;
+ }
+ body {
+ 	line-height: 1;
+ }
+ ol, ul {
+ 	list-style: none;
+ }
+ blockquote, q {
+ 	quotes: none;
+ }
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+ 	content: '';
+ 	content: none;
+ }
+ table {
+ 	border-collapse: collapse;
+ 	border-spacing: 0;
+ }
+
+ /**
+  * Website
+  */
+
+body {
+  font-family: 'Poiret One', cursive;
+  max-width: 1000px;
+  margin: 0 20%;
+}
+
+header {
+  margin-bottom: 3rem;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.75rem 0 2rem 0;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.5rem 0 1.5rem 0;
+  text-align: center;
+}
+
+a:hover h3 {
+  text-shadow:  2px 2px lightgrey;
+}
+
+.block {
+  display: block;
+  color: black;
+  text-decoration: none;
+  border: 1px black solid;
+  width: 25%;
+  min-width: 130px;
+  min-height: 120px;
+  margin-left: 6rem;
+  padding: 5px;
+}
+
+.block.right {
+  float: right;
+  margin-right: 6rem;
+}
+
+.block.center {
+  margin: 0 auto;
+}
+
+.block select {
+  margin: 0.5rem auto;
+  display: block;
+}
+
+div.center {
+  text-align: center;
+}
+
+.clear {
+  clear: both;
+}
+
+input.find-combinations {
+  margin: 1rem;
+  background-color: lightgrey;
+  border: 1px black solid;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Poiret One', cursive;
+  cursor: pointer;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-family: sans-serif;
+  text-align: justify;
+  letter-spacing: 0.03rem;
+}
+
+.choices, .result {
+  display: none;
+}
+
+/**
+ * Graphs Styles
+ */
+
+path.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+marker#water {
+  fill: red;
+}
+
+path.link.water {
+  stroke: lightblue;
+}
+
+path.link.resolved {
+  stroke-dasharray: 0,2 1;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+text.shadow {
+  stroke: #fff;
+  stroke-width: 3px;
+  stroke-opacity: .6;
+}

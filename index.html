@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" content="text/html;charset=UTF-8">
+  <head>
+    <title>Permaristics !</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Find synergies in between the elements of your permaculture design !"/>
+    <meta property="og:title" content="Permaristics !" />
+    <meta property="og:description" content="Find synergies in between the elements of your permaculture design !" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
+    <script type="text/javascript" src="permaristics.js"></script>
+    <link rel="stylesheet" type="text/css" href="permaristics.css">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <header>
+      <h1>Permaristics !</h1>
+    </header>
+    <section id="choice">
+      <h2>Already know your&hellip;</h2>
+      <a id="to-norps" class="block right" href="#">
+        <h3>Needs or products ?</h3>
+        <p>You're looking for elements synergising with your needs and products (water, shade, manure...).</p>
+      </a>
+      <a id="to-elements" class="block" href="#">
+        <h3>Elements ?</h3>
+        <p>You're looking for needs and products synergising with your elements (chicken, pond, oak...).</p>
+      </a>
+    </section>
+    <section id="presentation">
+      <h2>What is this again ?</h2>
+      <p>This application targets permaculturists wanting to create a permaculture design by finding elements that have synergies in between them. One way to do so is by finding the needs and the products of each element. If what produces of an element is needed by another one, you have a synergy in between them.</p>
+      <p>With Permaristics, you'll be able to find new synergies or find elements that will add new ones to the design. You may start by either entering the needs or products you want to find synergies for, or by entering elements to which Permaristics will complete synergies.</p>
+    </section>
+    <section id="norps" class="choices">
+      <h2>Here are my needs or products</h2>
+      <div class="block right">
+        <h3>Products</h3>
+        <div id="products-choices" class="center"></div>
+      </div>
+      <div class="block">
+        <h3>Needs</h3>
+        <div id="needs-choices" class="center"></div>
+      </div>
+      <div class="center clear">
+        <input class="find-combinations" type="button" value="Find combinations !">
+      </div>
+    </section>
+    <section id="elements" class="choices">
+      <h2>Here are my elements</h2>
+      <div class="block center">
+        <h3>Elements</h3>
+        <div id="elements-choices" class="center"></div>
+      </div>
+      <div class="center clear">
+        <input class="find-combinations" type="button" value="Find combinations !">
+      </div>
+    </section>
+    <section id="result" class="result">
+      <h2>Here's one possible combination</h2>
+      <div id="graph" class="center"></div>
+    </section>
+  </body>
+</html>
