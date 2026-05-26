@@ -1,29 +1,36 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { SearchRestrictions, SynergyGraphResult } from '@/domain/types'
+import type { SynergyGraphResult, SynergySearchCriteria } from '@/domain/types'
 import { synergyService } from '@/services/synergyService'
 
-export type AppStep = 'home' | 'norps' | 'elements' | 'result'
+/** Wizard steps: home and result are distinct end screens; flows/elements are search forms. */
+export type AppStep = 'home' | 'flows' | 'elements' | 'result'
 
 export const useAppStore = defineStore('app', () => {
   const step = ref<AppStep>('home')
-  const restrictions = ref<SearchRestrictions>({})
+  const searchCriteria = ref<SynergySearchCriteria>({})
   const graphResult = ref<SynergyGraphResult | null>(null)
   const loading = ref(false)
 
   function goTo(stepName: AppStep) {
     step.value = stepName
-    if (stepName === 'norps' || stepName === 'elements') {
+    if (stepName === 'flows' || stepName === 'elements') {
       graphResult.value = null
-      restrictions.value = {}
+      searchCriteria.value = {}
     }
   }
 
-  async function search(nextRestrictions: SearchRestrictions) {
+  function goHome() {
+    step.value = 'home'
+    graphResult.value = null
+    searchCriteria.value = {}
+  }
+
+  async function search(criteria: SynergySearchCriteria) {
     loading.value = true
-    restrictions.value = nextRestrictions
+    searchCriteria.value = criteria
     try {
-      graphResult.value = await synergyService.findCombinations(nextRestrictions)
+      graphResult.value = await synergyService.findSynergies(criteria)
       step.value = 'result'
     } finally {
       loading.value = false
@@ -32,10 +39,11 @@ export const useAppStore = defineStore('app', () => {
 
   return {
     step,
-    restrictions,
+    searchCriteria,
     graphResult,
     loading,
     goTo,
+    goHome,
     search,
   }
 })

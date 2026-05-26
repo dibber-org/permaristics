@@ -3,15 +3,15 @@ import { useI18n } from 'vue-i18n'
 export function useCatalogLabels() {
   const { t, te } = useI18n()
 
-  function connectionLabel(id: string): string {
-    const key = `connections.${id}`
-    return te(key) ? t(key) : id
+  function flowLabel(slug: string): string {
+    const key = `flows.${slug}`
+    return te(key) ? t(key) : slug
   }
 
-  function elementLabel(id: string): string {
-    const key = `catalog.elements.${id}`
-    return te(key) ? t(key) : id
+  function elementLabel(slug: string): string {
+    const key = `catalog.elements.${slug}`
+    return te(key) ? t(key) : slug
   }
 
-  return { connectionLabel, elementLabel }
+  return { flowLabel, elementLabel }
 }

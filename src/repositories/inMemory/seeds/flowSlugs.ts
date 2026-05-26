@@ -1,5 +1,5 @@
-/** All need/product ids used in selects and edge labels. */
-export const CONNECTION_IDS = [
+/** Flow slugs — source format for in-memory catalog (labels in i18n). */
+export const FLOW_SLUGS = [
   'insect',
   'air',
   'water',

@@ -1,15 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { CONNECTION_IDS } from '@/repositories/inMemory/connectionIds'
+import type { SelectOption } from '@/components/SelectList.vue'
+import { synergyService } from '@/services/synergyService'
 import { useAppStore } from '@/stores/appStore'
 import SelectList from './SelectList.vue'
 
 const { t } = useI18n()
 const appStore = useAppStore()
 
+const flowOptions = ref<SelectOption[]>([])
 const selectedNeeds = ref<string[]>([])
 const selectedProducts = ref<string[]>([])
+
+onMounted(async () => {
+  const { flows } = await synergyService.loadCatalog()
+  flowOptions.value = flows.map((flow) => ({ id: flow.id, slug: flow.slug }))
+})
+
+const sortedFlowOptions = computed(() =>
+  [...flowOptions.value].sort((a, b) => a.slug.localeCompare(b.slug)),
+)
 
 function submit() {
   appStore.search({
@@ -20,21 +31,21 @@ function submit() {
 </script>
 
 <template>
-  <section id="norps" class="form-section">
-    <h2>{{ t('norps.heading') }}</h2>
+  <section id="flows" class="form-section">
+    <h2>{{ t('flowsScreen.heading') }}</h2>
     <div class="columns">
       <div class="column">
-        <h3>{{ t('norps.needs') }}</h3>
-        <SelectList v-model="selectedNeeds" :option-ids="CONNECTION_IDS" kind="connection" />
+        <h3>{{ t('flowsScreen.needs') }}</h3>
+        <SelectList v-model="selectedNeeds" :options="sortedFlowOptions" kind="flow" />
       </div>
       <div class="column">
-        <h3>{{ t('norps.products') }}</h3>
-        <SelectList v-model="selectedProducts" :option-ids="CONNECTION_IDS" kind="connection" />
+        <h3>{{ t('flowsScreen.products') }}</h3>
+        <SelectList v-model="selectedProducts" :options="sortedFlowOptions" kind="flow" />
       </div>
     </div>
     <div class="center actions">
       <button type="button" class="primary" :disabled="appStore.loading" @click="submit">
-        {{ t('norps.find') }}
+        {{ t('flowsScreen.find') }}
       </button>
     </div>
   </section>

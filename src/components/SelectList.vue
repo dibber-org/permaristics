@@ -3,26 +3,33 @@ import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useCatalogLabels } from '@/composables/useCatalogLabels'
 
+export interface SelectOption {
+  id: string
+  slug: string
+}
+
 const props = defineProps<{
-  optionIds: readonly string[]
-  kind: 'connection' | 'element'
+  options: readonly SelectOption[]
+  kind: 'flow' | 'element'
 }>()
 
 const model = defineModel<string[]>({ default: () => [] })
 
 const { t } = useI18n()
-const { connectionLabel, elementLabel } = useCatalogLabels()
+const { flowLabel, elementLabel } = useCatalogLabels()
 
 /** One row per slot; empty string means “not chosen yet”. */
 const slots = ref<string[]>([''])
 
-function labelFor(id: string): string {
-  return props.kind === 'element' ? elementLabel(id) : connectionLabel(id)
+function labelFor(option: SelectOption): string {
+  return props.kind === 'element'
+    ? elementLabel(option.slug)
+    : flowLabel(option.slug)
 }
 
 function sortedOptions(): { id: string; label: string }[] {
-  return [...props.optionIds]
-    .map((id) => ({ id, label: labelFor(id) }))
+  return [...props.options]
+    .map((option) => ({ id: option.id, label: labelFor(option) }))
     .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }))
 }
 
@@ -42,11 +49,12 @@ function onSlotChange(index: number, value: string) {
 }
 
 watch(
-  () => props.optionIds,
+  () => props.options,
   () => {
     slots.value = ['']
     syncModelFromSlots()
   },
+  { deep: true },
 )
 </script>
 

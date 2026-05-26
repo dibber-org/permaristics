@@ -3,11 +3,10 @@ import { storeToRefs } from 'pinia'
 import { watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppHeader from '@/components/AppHeader.vue'
-import EntryChoice from '@/components/EntryChoice.vue'
-import PresentationSection from '@/components/PresentationSection.vue'
-import NorpsForm from '@/components/NorpsForm.vue'
+import HomeView from '@/components/HomeView.vue'
+import FlowsForm from '@/components/FlowsForm.vue'
 import ElementsForm from '@/components/ElementsForm.vue'
-import ResultSection from '@/components/ResultSection.vue'
+import ResultView from '@/components/ResultView.vue'
 import { useAppStore } from '@/stores/appStore'
 
 const { t } = useI18n()
@@ -21,9 +20,8 @@ watchEffect(() => {
 
 <template>
   <AppHeader />
-  <EntryChoice v-if="step === 'home'" />
-  <PresentationSection v-if="step === 'home'" />
-  <NorpsForm v-else-if="step === 'norps'" />
+  <HomeView v-if="step === 'home'" />
+  <FlowsForm v-else-if="step === 'flows'" />
   <ElementsForm v-else-if="step === 'elements'" />
-  <ResultSection v-else-if="step === 'result'" />
+  <ResultView v-else-if="step === 'result'" />
 </template>

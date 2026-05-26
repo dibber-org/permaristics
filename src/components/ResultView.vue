@@ -10,15 +10,15 @@ const { graphResult } = storeToRefs(appStore)
 </script>
 
 <template>
-  <section id="result" class="result">
+  <main id="result" class="result">
     <h2>{{ t('result.heading') }}</h2>
     <SynergyGraph :graph="graphResult" />
     <div class="center">
-      <button type="button" class="back" @click="appStore.goTo('home')">
+      <button type="button" class="back" @click="appStore.goHome()">
         {{ t('result.back') }}
       </button>
     </div>
-  </section>
+  </main>
 </template>
 
 <style scoped>

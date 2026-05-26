@@ -1,9 +1,10 @@
+import { propertyValues } from './designElement'
 import type {
-  PermacultureElement,
+  DesignElement,
   PropertyKind,
-  SearchRestrictions,
   SynergyGraphResult,
   SynergyLink,
+  SynergySearchCriteria,
 } from './types'
 
 export function mergeUnique<T>(first: T[], second: T[]): T[] {
@@ -21,32 +22,32 @@ export function sortById<T extends { id: string }>(items: T[]): T[] {
 }
 
 function elementHasAny(
-  element: PermacultureElement,
+  element: DesignElement,
   kind: PropertyKind,
   values: string[],
 ): boolean {
-  const list = element[kind]
-  if (!list) {
+  const list = propertyValues(element, kind)
+  if (!list.length) {
     return false
   }
   return values.some((value) => list.includes(value))
 }
 
 export function filterElements(
-  elements: Record<string, PermacultureElement>,
-  restrictions: SearchRestrictions,
-): Record<string, PermacultureElement> {
-  const filtered: Record<string, PermacultureElement> = {}
+  elements: Record<string, DesignElement>,
+  criteria: SynergySearchCriteria,
+): Record<string, DesignElement> {
+  const filtered: Record<string, DesignElement> = {}
 
   for (const element of Object.values(elements)) {
     let matches = false
 
-    if (restrictions.names?.length) {
-      matches = restrictions.names.includes(element.id) || matches
+    if (criteria.elementIds?.length) {
+      matches = criteria.elementIds.includes(element.id) || matches
     }
 
     for (const kind of ['needs', 'products', 'behaviors'] as const) {
-      const values = restrictions[kind]
+      const values = criteria[kind]
       if (values?.length) {
         matches = elementHasAny(element, kind, values) || matches
       }
@@ -61,7 +62,7 @@ export function filterElements(
 }
 
 export function propertiesFromElements(
-  elements: Record<string, PermacultureElement>,
+  elements: Record<string, DesignElement>,
   kinds: PropertyKind[] = ['needs', 'products', 'behaviors'],
 ): Record<PropertyKind, string[]> {
   const result = Object.fromEntries(
@@ -70,10 +71,7 @@ export function propertiesFromElements(
 
   for (const element of Object.values(elements)) {
     for (const kind of kinds) {
-      const list = element[kind]
-      if (list) {
-        result[kind] = mergeUnique(result[kind], list)
-      }
+      result[kind] = mergeUnique(result[kind], propertyValues(element, kind))
     }
   }
 
@@ -81,16 +79,17 @@ export function propertiesFromElements(
 }
 
 export function combineSynergyLinks(
-  elements: Record<string, PermacultureElement>,
+  elements: Record<string, DesignElement>,
 ): SynergyLink[] {
-  const producersByProduct: Record<string, string[]> = {}
+  const producersByFlowId: Record<string, string[]> = {}
 
   for (const element of Object.values(elements)) {
     for (const product of element.products) {
-      if (!producersByProduct[product]) {
-        producersByProduct[product] = []
+      const flowId = product.flow.id
+      if (!producersByFlowId[flowId]) {
+        producersByFlowId[flowId] = []
       }
-      producersByProduct[product].push(element.id)
+      producersByFlowId[flowId].push(element.id)
     }
   }
 
@@ -98,7 +97,7 @@ export function combineSynergyLinks(
 
   for (const element of Object.values(elements)) {
     for (const need of element.needs) {
-      const producers = producersByProduct[need]
+      const producers = producersByFlowId[need.flow.id]
       if (!producers) {
         continue
       }
@@ -106,7 +105,7 @@ export function combineSynergyLinks(
         if (source === element.id) {
           continue
         }
-        links.push({ source, target: element.id, type: need })
+        links.push({ source, target: element.id, flow: need.flow })
       }
     }
   }
@@ -118,23 +117,23 @@ export function combineSynergyLinks(
     if (a.target !== b.target) {
       return a.target.localeCompare(b.target)
     }
-    return a.type.localeCompare(b.type)
+    return a.flow.id.localeCompare(b.flow.id)
   })
 }
 
 export function resolveElementsForGraph(
-  catalog: Record<string, PermacultureElement>,
-  restrictions: SearchRestrictions,
-): Record<string, PermacultureElement> {
-  let selected: Record<string, PermacultureElement> = {}
-  const remaining: SearchRestrictions = { ...restrictions }
+  catalog: Record<string, DesignElement>,
+  criteria: SynergySearchCriteria,
+): Record<string, DesignElement> {
+  let selected: Record<string, DesignElement> = {}
+  const remaining: SynergySearchCriteria = { ...criteria }
 
-  if (remaining.names?.length) {
+  if (remaining.elementIds?.length) {
     selected = {
       ...selected,
-      ...filterElements(catalog, { names: remaining.names }),
+      ...filterElements(catalog, { elementIds: remaining.elementIds }),
     }
-    delete remaining.names
+    delete remaining.elementIds
   }
 
   if (
@@ -161,10 +160,10 @@ export function resolveElementsForGraph(
 }
 
 export function buildSynergyGraph(
-  catalog: Record<string, PermacultureElement>,
-  restrictions: SearchRestrictions,
+  catalog: Record<string, DesignElement>,
+  criteria: SynergySearchCriteria,
 ): SynergyGraphResult {
-  const elements = resolveElementsForGraph(catalog, restrictions)
+  const elements = resolveElementsForGraph(catalog, criteria)
   const links = combineSynergyLinks(elements)
 
   return {

@@ -10,8 +10,8 @@
   },
   "entry": {
     "heading": "Already know your…",
-    "norpsTitle": "Needs or products?",
-    "norpsDescription": "You're looking for elements synergising with your needs and products (water, shade, manure…).",
+    "flowsTitle": "Needs or products?",
+    "flowsDescription": "You're looking for elements synergising with your needs and products (water, shade, manure…).",
     "elementsTitle": "Elements?",
     "elementsDescription": "You're looking for needs and products synergising with your elements (chicken, pond, oak…)."
   },
@@ -20,7 +20,7 @@
     "p1": "This application targets permaculturists wanting to create a permaculture design by finding elements that have synergies between them. One way to do so is by finding the needs and the products of each element. If what one element produces is needed by another, you have a synergy between them.",
     "p2": "With Permaristics, you'll be able to find new synergies or find elements that will add new ones to the design. You may start by either entering the needs or products you want to find synergies for, or by entering elements to which Permaristics will complete synergies."
   },
-  "norps": {
+  "flowsScreen": {
     "heading": "Here are my needs or products",
     "needs": "Needs",
     "products": "Products",
@@ -46,7 +46,7 @@
       "oak": "Oak"
     }
   },
-  "connections": {
+  "flows": {
     "insect": "Insect",
     "air": "Air",
     "water": "Water",

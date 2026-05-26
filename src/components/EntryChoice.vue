@@ -10,9 +10,9 @@ const appStore = useAppStore()
   <section id="choice">
     <h2>{{ t('entry.heading') }}</h2>
     <div class="blocks">
-      <button type="button" class="block right" @click="appStore.goTo('norps')">
-        <h3>{{ t('entry.norpsTitle') }}</h3>
-        <p>{{ t('entry.norpsDescription') }}</p>
+      <button type="button" class="block right" @click="appStore.goTo('flows')">
+        <h3>{{ t('entry.flowsTitle') }}</h3>
+        <p>{{ t('entry.flowsDescription') }}</p>
       </button>
       <button type="button" class="block" @click="appStore.goTo('elements')">
         <h3>{{ t('entry.elementsTitle') }}</h3>

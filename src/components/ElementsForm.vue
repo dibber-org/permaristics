@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import type { SelectOption } from '@/components/SelectList.vue'
 import { synergyService } from '@/services/synergyService'
 import { useAppStore } from '@/stores/appStore'
 import SelectList from './SelectList.vue'
@@ -8,21 +9,26 @@ import SelectList from './SelectList.vue'
 const { t } = useI18n()
 const appStore = useAppStore()
 
-const elementIds = ref<string[]>([])
+const elementOptions = ref<SelectOption[]>([])
 const selectedElements = ref<string[]>([])
 
 onMounted(async () => {
-  const catalog = await synergyService.loadCatalog()
-  elementIds.value = Object.keys(catalog).sort()
+  const { elements } = await synergyService.loadCatalog()
+  elementOptions.value = elements.map((element) => ({
+    id: element.id,
+    slug: element.slug,
+  }))
 })
 
-const sortedElementIds = computed(() => elementIds.value)
+const sortedElementOptions = computed(() =>
+  [...elementOptions.value].sort((a, b) => a.slug.localeCompare(b.slug)),
+)
 
 function submit() {
   if (!selectedElements.value.length) {
     return
   }
-  appStore.search({ names: selectedElements.value })
+  appStore.search({ elementIds: selectedElements.value })
 }
 </script>
 
@@ -33,7 +39,7 @@ function submit() {
       <h3>{{ t('elementsScreen.label') }}</h3>
       <SelectList
         v-model="selectedElements"
-        :option-ids="sortedElementIds"
+        :options="sortedElementOptions"
         kind="element"
       />
     </div>

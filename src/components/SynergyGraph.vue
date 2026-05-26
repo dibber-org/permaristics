@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { defineConfigs } from 'v-network-graph'
-import type { SynergyGraphResult } from '@/domain/types'
+import type { Catalog, SynergyGraphResult } from '@/domain/types'
 import { useNetworkGraph } from '@/composables/useNetworkGraph'
+import { synergyService } from '@/services/synergyService'
 
 const props = defineProps<{
   graph: SynergyGraphResult | null
 }>()
 
 const graphRef = ref(props.graph)
+const catalog = ref<Catalog | null>(null)
+
 watch(
   () => props.graph,
   (value) => {
@@ -16,7 +19,11 @@ watch(
   },
 )
 
-const { nodes, edges } = useNetworkGraph(graphRef)
+onMounted(async () => {
+  catalog.value = await synergyService.loadCatalog()
+})
+
+const { nodes, edges } = useNetworkGraph(graphRef, catalog)
 
 const configs = defineConfigs({
   view: {

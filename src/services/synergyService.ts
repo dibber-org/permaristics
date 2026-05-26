@@ -1,30 +1,33 @@
 import { buildSynergyGraph } from '@/domain/synergy'
 import type {
-  PermacultureElement,
-  SearchRestrictions,
+  Catalog,
+  DesignElement,
   SynergyGraphResult,
+  SynergySearchCriteria,
 } from '@/domain/types'
 import { getCatalogRepository } from '@/repositories'
 
 export class SynergyService {
-  private catalogCache: Record<string, PermacultureElement> | null = null
+  private catalogCache: Catalog | null = null
 
-  async loadCatalog(): Promise<Record<string, PermacultureElement>> {
+  async loadCatalog(): Promise<Catalog> {
     if (this.catalogCache) {
       return this.catalogCache
     }
-    const { elements } = await getCatalogRepository().fetchCatalog()
-    this.catalogCache = Object.fromEntries(
-      elements.map((element) => [element.id, element]),
-    )
+    this.catalogCache = await getCatalogRepository().fetchCatalog()
     return this.catalogCache
   }
 
-  async findCombinations(
-    restrictions: SearchRestrictions,
+  async loadElements(): Promise<Record<string, DesignElement>> {
+    const { elements } = await this.loadCatalog()
+    return Object.fromEntries(elements.map((element) => [element.id, element]))
+  }
+
+  async findSynergies(
+    criteria: SynergySearchCriteria,
   ): Promise<SynergyGraphResult> {
-    const catalog = await this.loadCatalog()
-    return buildSynergyGraph(catalog, restrictions)
+    const catalog = await this.loadElements()
+    return buildSynergyGraph(catalog, criteria)
   }
 }
 

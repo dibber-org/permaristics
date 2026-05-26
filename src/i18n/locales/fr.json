@@ -10,8 +10,8 @@
   },
   "entry": {
     "heading": "Vous connaissez déjà vos…",
-    "norpsTitle": "Besoins ou produits ?",
-    "norpsDescription": "Vous cherchez des éléments en synergie avec vos besoins et produits (eau, ombre, fumier…).",
+    "flowsTitle": "Besoins ou produits ?",
+    "flowsDescription": "Vous cherchez des éléments en synergie avec vos besoins et produits (eau, ombre, fumier…).",
     "elementsTitle": "Éléments ?",
     "elementsDescription": "Vous cherchez des besoins et produits en synergie avec vos éléments (poule, étang, chêne…)."
   },
@@ -20,7 +20,7 @@
     "p1": "Cette application s'adresse aux permaculteurs qui souhaitent concevoir un design en permaculture en trouvant des éléments ayant des synergies entre eux. Une approche consiste à identifier les besoins et les produits de chaque élément. Si ce qu'un élément produit répond au besoin d'un autre, il existe une synergie entre eux.",
     "p2": "Avec Permaristics, vous pourrez découvrir de nouvelles synergies ou des éléments qui en ajoutent à votre design. Commencez soit par vos besoins ou produits, soit par vos éléments — Permaristics complétera les synergies possibles."
   },
-  "norps": {
+  "flowsScreen": {
     "heading": "Voici mes besoins ou produits",
     "needs": "Besoins",
     "products": "Produits",
@@ -46,7 +46,7 @@
       "oak": "Chêne"
     }
   },
-  "connections": {
+  "flows": {
     "insect": "Insecte",
     "air": "Air",
     "water": "Eau",
