@@ -1,0 +1,80 @@
+{
+  "app": {
+    "title": "Permaristics !",
+    "metaDescription": "Trouvez des synergies entre les éléments de votre design en permaculture !"
+  },
+  "language": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "entry": {
+    "heading": "Vous connaissez déjà vos…",
+    "norpsTitle": "Besoins ou produits ?",
+    "norpsDescription": "Vous cherchez des éléments en synergie avec vos besoins et produits (eau, ombre, fumier…).",
+    "elementsTitle": "Éléments ?",
+    "elementsDescription": "Vous cherchez des besoins et produits en synergie avec vos éléments (poule, étang, chêne…)."
+  },
+  "presentation": {
+    "heading": "De quoi s'agit-il ?",
+    "p1": "Cette application s'adresse aux permaculteurs qui souhaitent concevoir un design en permaculture en trouvant des éléments ayant des synergies entre eux. Une approche consiste à identifier les besoins et les produits de chaque élément. Si ce qu'un élément produit répond au besoin d'un autre, il existe une synergie entre eux.",
+    "p2": "Avec Permaristics, vous pourrez découvrir de nouvelles synergies ou des éléments qui en ajoutent à votre design. Commencez soit par vos besoins ou produits, soit par vos éléments — Permaristics complétera les synergies possibles."
+  },
+  "norps": {
+    "heading": "Voici mes besoins ou produits",
+    "needs": "Besoins",
+    "products": "Produits",
+    "find": "Trouver des combinaisons !"
+  },
+  "elementsScreen": {
+    "heading": "Voici mes éléments",
+    "label": "Éléments",
+    "find": "Trouver des combinaisons !"
+  },
+  "result": {
+    "heading": "Voici une combinaison possible",
+    "back": "Recommencer",
+    "empty": "Aucune synergie trouvée pour cette sélection."
+  },
+  "select": {
+    "placeholder": "— Choisir —"
+  },
+  "catalog": {
+    "elements": {
+      "chicken": "Poule",
+      "pond": "Étang",
+      "oak": "Chêne"
+    }
+  },
+  "connections": {
+    "insect": "Insecte",
+    "air": "Air",
+    "water": "Eau",
+    "shelter": "Abri",
+    "protection": "Protection",
+    "community": "Communauté",
+    "grit": "Gravier",
+    "dust": "Poussière",
+    "disease-control": "Lutte contre les maladies",
+    "egg": "Œuf",
+    "meat": "Viande",
+    "manure": "Fumier",
+    "feather": "Plume",
+    "scraping": "Grattage",
+    "co2": "CO₂",
+    "heat": "Chaleur",
+    "deworming": "Vermifuge naturel",
+    "soil": "Sol",
+    "sunlight": "Lumière du soleil",
+    "space": "Espace",
+    "micro-climate": "Micro-climat",
+    "oxygen": "Oxygène",
+    "wood": "Bois",
+    "shade": "Ombre",
+    "windbreak": "Brise-vent",
+    "habitat": "Habitat",
+    "acorn": "Gland",
+    "moisture": "Humidité",
+    "leaf": "Feuille"
+  }
+}
